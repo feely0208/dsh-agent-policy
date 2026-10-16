@@ -1,0 +1,4 @@
+# @deepwhale-cn/dsh-agent-policy 的组合层
+- insert:
+    - id: agent-policy
+      name: '@deepwhale-cn/dsh-agent-policy'

@@ -1,0 +1,16 @@
+{
+  "id": "POLICY-CONFIRM-MISSING",
+  "title": "代码里写着「需要人工确认」，同一个文件里却直接把高风险动作做掉了",
+  "severity": "high",
+  "source": "OWASP Top 10 for LLM Applications 2025 · LLM06 Excessive Agency 之 Human-in-the-loop 控制缺失；NIST AI RMF 1.0 · MANAGE 2.2（高风险动作应保留人工介入点）与 GOVERN 1.2（策略与执行一致）",
+  "advice": "代码一边声明这一类动作要人工确认，一边在同一个文件里直接执行了删除 / 转账 / 发布这类高风险动作，而且全文找不到一个确认闸门。声明成了摆设。请真的接上确认：同步等待人工批准（confirmRequired / requestApproval / await approve），或落到待审队列由人放行。只写在注释、README 或策略文件里，都不算接上了。",
+  "check": {
+    "type": "file-pattern",
+    "pattern": "(^|[\\s\\*\"'「（(、，,])(需要确认|需人工确认|人工确认|人工审批|待审批|需审批|requires?\\s+(human|manual)\\s+(approval|confirmation|review)|human[-_ ]in[-_ ]the[-_ ]loop)",
+    "flags": "gim",
+    "exts": [".js", ".mjs", ".cjs", ".ts", ".mts", ".cts", ".jsx", ".tsx", ".py"],
+    "paths": ["agent/**", "src/**", "lib/**", "scripts/**", "app/**", "server/**", "worker/**", "bot/**", "config/**"],
+    "exclude": ["fixtures/"],
+    "max": 20
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "support-agent",
+  "version": "2.3.1",
+  "private": true,
+  "description": "客服工单 agent —— 读取工单、调用内部工具、定时同步",
+  "type": "module",
+  "main": "src/bot.js",
+  "scripts": {
+    "start": "node src/bot.js",
+    "batch": "node src/batch.js"
+  },
+  "dependencies": {
+    "openai": "^4.67.3",
+    "yaml": "^2.5.1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,35 @@
+# ticket-bot 运行策略
+# 声明与实现保持一致：这里写的每一条，代码里都能对上。
+version: 1
+
+policy:
+  name: ticket-bot-policy
+  owner: platform-team
+  updated: 2026-09-30
+  outbound:
+    allow: false
+    reason: 全部流量走内网网关，不访问公网
+  egress:
+    allowed_domains:
+      - llm-gateway.internal
+      - ticket-db.internal
+
+permissions:
+  allowed_tools:
+    - search_orders
+    - close_ticket
+    - escalate_to_human
+  allowed_actions:
+    - read_ticket
+    - close_ticket
+    - annotate_ticket
+
+approval:
+  required_actions:
+    - close_ticket_with_refund
+    - delete_ticket
+  note: 这两个动作由人工在后台审批后执行，agent 本身不实现
+
+sync:
+  mode: manual
+  interval_minutes: 0

@@ -1,0 +1,14 @@
+{
+  "name": "ops-assistant",
+  "version": "0.3.0",
+  "private": true,
+  "description": "运维助手 —— 接模型、按用户说的话调工具",
+  "type": "module",
+  "main": "src/agent.js",
+  "dependencies": {
+    "openai": "^4.67.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "POLICY-EGRESS-PROMISE",
+  "title": "策略里写明了不准出网，同一个项目里却有网络调用",
+  "severity": "high",
+  "source": "OWASP Top 10 for LLM Applications 2025 · LLM06 Excessive Agency（过度代理）—— 智能体的能力应与其声明的边界一致；NIST AI RMF 1.0 · GOVERN 1.2（策略与执行的一致性）",
+  "advice": "这是「说好不干的事干了」。策略文件是给人看的承诺，代码是实际会发生的事 —— 两者不一致时，以代码为准。请核对每一处网络调用：是漏删的调试代码、是三方依赖夹带的、还是策略本身就写错了。改完让策略和代码重新对上，否则这份策略文件只是在给人安全感，不是它该起的作用。",
+  "check": {
+    "type": "file-pattern",
+    "allOf": [
+      "(offline|no network|no egress|deny network|block network|不允许出网|禁止出网|禁止联网|不出网|无网络访问|不访问网络|禁止网络|离线)",
+      "(fetch\\(|https?\\.(request|get)\\(|axios\\.|net\\.connect\\(|node-fetch|got\\()"
+    ],
+    "pattern": "(fetch\\(|https?\\.(request|get)\\(|axios\\.|net\\.connect\\(|node-fetch|got\\()",
+    "flags": "gi",
+    "exts": [".js", ".mjs", ".cjs", ".ts", ".mts", ".cts", ".jsx", ".tsx", ".py"],
+    "paths": ["**/policy.yml", "**/policy.yaml", "**/policy.json", "**/policies/*.yml", "**/policies/*.yaml", "**/policies/*.json", "agent/**", "src/**"],
+    "exclude": ["fixtures/"],
+    "max": 20
+  }
+}

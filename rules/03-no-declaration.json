@@ -1,0 +1,16 @@
+{
+  "id": "POLICY-NO-DECLARATION",
+  "title": "有 agent 代码（会调模型 / 工具）却找不到任何策略声明文件",
+  "severity": "medium",
+  "source": "NIST AI RMF 1.0 · GOVERN 1.1 与 MAP 1.1（AI 系统的策略、责任与边界应在文档中明确）；CIS Controls v8 · Control 6（最小权限需要事先声明授予范围）；OWASP LLM06:2025 Excessive Agency",
+  "advice": "项目里能看到 agent 在调模型、调工具，却找不到一份写明「它能做什么、不能做什么」的策略文件。这时 agent 的实际权限只存在于代码里，评审的人、接手的人都无从核对 —— 出了问题也没有可对照的基准。建议补一份策略声明（哪怕只有几行）：允许的工具、允许访问的域名或目录、需要人工确认的动作。写完再和代码对一遍。",
+  "check": {
+    "type": "files-lack",
+    "pattern": "allow|allowed|deny|denied|permission|forbidden|tools|capabilities|egress|outbound|network|confirm|approval|human|restrict|scope|policy",
+    "flags": "i",
+    "paths": ["policy.yml", "policy.yaml", "policy.json", "agent-policy.yml", "agent.yml", "agent.yaml", "ai-policy.yml", "automation-policy.yml", "**.yml", "**.yaml", "**.json", "**.toml"],
+    "when": "openai|anthropic|@deepseek-ai|tool_call|toolCalls|callTool|toolUse|tool_use|function_call|functions:|agent_loop|AgentExecutor|react_agent",
+    "evidence": "项目里有 agent 代码（调模型 / 调工具），但找不到任何策略声明文件",
+    "max": 5
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "id": "POLICY-DECL-EMPTY",
+  "title": "策略声明里的工具清单是空的 —— 声明了字段，没声明内容",
+  "severity": "medium",
+  "source": "CIS Controls v8 · Control 6（访问授权必须显式列出，而非留空）；NIST SP 800-53 Rev.5 · AC-6(1) 与 CM-6 配置设置；最小权限原则要求权限来源可核对",
+  "advice": "策略文件写了 `tools:` 却没写内容，或写成 `tools: []`。留空的字段有两种可能：一是还没填，二是运行时按默认值放开 —— 两种情况都无法核对 agent 到底能用什么。请把清单补全；如果这个 agent 确实不该调用任何工具，就把这句话写进策略，别只留一个空字段。",
+  "check": {
+    "type": "file-pattern",
+    "pattern": "(^|[\\s\\[,\"'])(tools|allowedTools|allowed_tools|tool_list|toolList|permissions|capabilities|allowed_actions|allowedActions)[\"']?\\s*:\\s*(\\[\\s*\\]|null|~|none|None)(\\s|$|,)",
+    "flags": "gim",
+    "exts": [".yml", ".yaml", ".json", ".toml", ".py", ".js", ".mjs", ".ts"],
+    "paths": ["**/policy.yml", "**/policy.yaml", "**/policy.json", "**/policies/*", "**/agent*.yml", "**/agent*.yaml", "**/agent*.json", "agent/**", "config/**"],
+    "exclude": ["fixtures/"],
+    "max": 20
+  }
+}
