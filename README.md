@@ -1,5 +1,7 @@
 # @deepwhale-cn/dsh-agent-policy
 
+[![dshfind 收录](https://dshfind.com/api/badge/feely0208/dsh-agent-policy?lang=zh)](https://dshfind.com/zh/plugins/feely0208/dsh-agent-policy)
+
 **说好不干的事干了没，干了的有没有说。**
 
 **关键词**：策略声明 · agent 权限 · 一致性核对 · 不出网 · 通配符放权 · 人工确认 · 过度代理 · 最小权限
